@@ -12,8 +12,17 @@ export default class PostsIndex extends React.Component {
   }
 
   componentDidMount() {
+    this.getPosts();
+  }
+
+  getPosts() {
     axios.get('http://localhost:8081/posts')
       .then(res => this.setState({posts: res.data}));
+  }
+
+  handleDelete(postId) {
+    axios.delete(`http://localhost:8081/posts/${postId}`)
+      .then(res => this.getPosts());
   }
 
   render() {
@@ -27,7 +36,7 @@ export default class PostsIndex extends React.Component {
             <Link to="/posts/new" className="btn btn-primary">New Post</Link>
           </div>
         </div>
-        <PostsList posts={this.state.posts} />
+        <PostsList posts={this.state.posts} onDelete={this.handleDelete.bind(this)}/>
         </div>
     );
   }
