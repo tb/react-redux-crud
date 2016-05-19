@@ -1,21 +1,26 @@
 import React from 'react';
-import { Route, IndexRoute, Router, Link, browserHistory } from 'react-router';
+import { Route, IndexRoute, Router, hashHistory } from 'react-router';
 import Dashboard from './dashboard/dashboard';
-import Posts from './posts/posts';
+import PostsIndex from './posts/posts-index';
+import PostsEdit from './posts/posts-edit';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 
 require('./app.scss');
 
 let App = ({children}) => {
   return (
     <div>
-      <nav className="navbar navbar-default">
-        <div className="container">
-          <ul className="nav navbar-nav">
-            <li><Link to="/">Dashboard</Link></li>
-            <li><Link to="/posts">Posts</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar>
+        <Nav>
+          <IndexLinkContainer to="/">
+            <NavItem eventKey={1}>Dashboard</NavItem>
+          </IndexLinkContainer>
+          <LinkContainer to="/posts">
+            <NavItem eventKey={2}>Posts</NavItem>
+          </LinkContainer>
+        </Nav>
+      </Navbar>
       <div className="container">
         {children}
       </div>
@@ -25,10 +30,11 @@ let App = ({children}) => {
 
 export default () => {
   return (
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard} />
-        <Route path="/posts" component={Posts} />
+        <Route path="/posts" component={PostsIndex} />
+        <Route path="/posts/:postId" component={PostsEdit} />
       </Route>
     </Router>
   )
