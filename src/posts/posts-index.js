@@ -1,28 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { PostsList } from './posts-list';
+import axios from 'axios';
 
 export default class PostsIndex extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      posts: []
+    };
+  }
+
   componentDidMount() {
-    console.log('PostsIndex did mount')
+    axios.get('http://localhost:8081/posts')
+      .then(res => this.setState({posts: res.data}));
   }
 
   render() {
-    let posts = [
-      {
-        id: 1,
-        title: 'Title 1'
-      },
-      {
-        id: 2,
-        title: 'Title 2'
-      },
-      {
-        id: 3,
-        title: 'Title 3'
-      }
-    ];
-
     return (
       <div>
         <div className="row">
@@ -33,7 +27,7 @@ export default class PostsIndex extends React.Component {
             <Link to="/posts/new" className="btn btn-primary">New Post</Link>
           </div>
         </div>
-        <PostsList posts={posts} />
+        <PostsList posts={this.state.posts} />
         </div>
     );
   }

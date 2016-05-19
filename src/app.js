@@ -34,6 +34,7 @@ export default () => {
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard} />
         <Route path="/posts" component={PostsIndex} />
+        <Route path="/posts/new" component={PostsEdit} />
         <Route path="/posts/:postId" component={PostsEdit} />
       </Route>
     </Router>
