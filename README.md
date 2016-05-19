@@ -24,7 +24,7 @@ React + Redux CRUD demo
     git clone https://github.com/tb/react-redux-crud
     npm i
     npm run server-api
-    npm run server
+    npm start
     open http://localhost:8080
 
 ## License
