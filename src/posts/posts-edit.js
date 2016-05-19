@@ -41,7 +41,7 @@ export default class PostsEdit extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} novalidate>
-        <div class="form-group">
+        <div className="form-group">
           <label className="label-control">Title</label>
           <input
             type="text"
@@ -49,7 +49,8 @@ export default class PostsEdit extends React.Component {
             value={this.state.post.title}
             onChange={this.handleChange.bind(this, 'title')} />
         </div>
-        <div class="form-group">
+
+        <div className="form-group">
           <label className="label-control">Body</label>
           <Textarea
             className="form-control"

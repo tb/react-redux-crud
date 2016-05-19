@@ -23,9 +23,11 @@ export const PostsListRow = ({post, onDelete}) => {
     <tr key={post.id}>
       <td>{post.id}</td>
       <td>{post.title}</td>
-      <td className="text-right">
-        <Link to={`/posts/${post.id}`} className="btn btn-primary">Edit</Link>
-        <a onClick={onDelete.bind(this, post.id)} className="btn btn-danger">Delete</a>
+      <td>
+        <div className="btn-toolbar pull-right">
+          <Link to={`/posts/${post.id}`} className="btn btn-primary">Edit</Link>
+          <a onClick={onDelete.bind(this, post.id)} className="btn btn-danger">Delete</a>
+        </div>
       </td>
     </tr>
   )
