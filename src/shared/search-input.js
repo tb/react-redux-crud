@@ -7,6 +7,8 @@ export default class SearchInput extends React.Component {
   }
 
   componentDidMount() {
+    this.ref.value = this.props.value || '';
+
     Rx.Observable.fromEvent(this.ref, 'keyup')
       .map((e) => e.target.value)
       .debounceTime(500)
@@ -27,6 +29,7 @@ export default class SearchInput extends React.Component {
 }
 
 SearchInput.propsTypes = {
+  value: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   onSearch: React.PropTypes.func
 };

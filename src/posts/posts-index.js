@@ -1,30 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import { PostsList } from './posts-list';
 import SearchInput from '../shared/search-input';
-import axios from 'axios';
-import querystring from 'querystring';
+import store from '../store';
+import * as postsActions from '../actions/posts-actions';
 
+@connect((state) => {
+  return {
+    params: state.postsState.params,
+    posts: state.postsState.posts
+  };
+})
 export default class PostsIndex extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      posts: []
-    };
   }
 
   componentDidMount() {
-    this.getPosts();
+    if (!this.props.posts.length) {
+      this.getPosts();
+    }
   }
 
   getPosts(params = {}) {
-    axios.get(`http://localhost:8081/posts?${querystring.stringify(params)}`)
-      .then(res => this.setState({posts: res.data}));
+    store.dispatch(postsActions.getPosts(params));
   }
 
   handleDelete(postId) {
-    axios.delete(`http://localhost:8081/posts/${postId}`)
-      .then(res => this.getPosts());
+    store.dispatch(postsActions.deletePost(postId));
   }
 
   handleSearch(field, value) {
@@ -36,13 +40,13 @@ export default class PostsIndex extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-6">
-            <SearchInput onSearch={this.handleSearch.bind(this, 'title_like')} placeholder="Title search ..." />
+            <SearchInput value={this.props.params.q} onSearch={this.handleSearch.bind(this, 'title_like')} placeholder="Title search ..." />
           </div>
           <div className="col-md-6 text-right">
             <Link to="/posts/new" className="btn btn-primary">New Post</Link>
           </div>
         </div>
-        <PostsList posts={this.state.posts} onDelete={this.handleDelete.bind(this)}/>
+        {this.props.posts.length > 0 && <PostsList posts={this.props.posts} onDelete={this.handleDelete.bind(this)}/>}
       </div>
     );
   }

@@ -1,12 +1,23 @@
 import React from 'react';
 import Textarea from 'react-textarea-autosize';
 import axios from 'axios';
+import store from '../store';
+import * as postsActions from '../actions/posts-actions';
 
+// import { connect } from 'react-redux'
+// import store from '../store';
+// import * as postsActions from '../actions/posts-actions';
+// @connect((state) => {
+//   return {
+//     post: state.postsState.post
+//   };
+// })
 export default class PostsEdit extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      ...this.state,
       postId: this.props.params.postId,
       post: {title: '', body: ''}
     };
@@ -14,6 +25,7 @@ export default class PostsEdit extends React.Component {
 
   componentDidMount() {
     if (this.state.postId) {
+      //store.dispatch(postsActions.getPost(this.props.params.postId))
       axios.get(`http://localhost:8081/posts/${this.state.postId}`)
         .then(res => this.setState({post: res.data}));
     }
@@ -26,10 +38,10 @@ export default class PostsEdit extends React.Component {
 
   handleSubmit() {
     if (this.state.postId) {
-      axios.put(`http://localhost:8081/posts/${this.state.postId}`, this.state.post)
+      store.dispatch(postsActions.updatePost(this.state.post))
         .then(() => this.goToIndex());
     } else {
-      axios.post(`http://localhost:8081/posts`, this.state.post)
+      store.dispatch(postsActions.createPost(this.state.post))
         .then(() => this.goToIndex());
     }
   }
@@ -65,7 +77,8 @@ export default class PostsEdit extends React.Component {
 }
 
 PostsEdit.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
+  store: React.PropTypes.object
 };
 
 PostsEdit.propsTypes = {

@@ -17,7 +17,7 @@ var app = jsonServer.create();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(expressJwt({secret: jwtSecret}).unless({path: ['/login']}));
+// app.use(expressJwt({secret: jwtSecret}).unless({path: ['/login']}));
 
 app.post('/login', authenticate, function (req, res) {
   var token = jwt.sign({email: user.email}, jwtSecret);

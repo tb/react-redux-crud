@@ -6,7 +6,9 @@ import PostsIndex from './posts/posts-index';
 import PostsEdit from './posts/posts-edit';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
-import {Auth} from './auth/auth';
+import { Auth } from './auth/auth';
+import { Provider } from 'react-redux';
+import store from './store';
 
 require('./app.scss');
 
@@ -40,14 +42,16 @@ let App = ({children}) => {
 
 export default () => {
   return (
-    <Router history={hashHistory}>
-      <Route path="/login" component={Login} />
-      <Route path="/" component={App}>
-        <IndexRoute component={Dashboard} />
-        <Route path="/posts" component={PostsIndex} />
-        <Route path="/posts/new" component={PostsEdit} />
-        <Route path="/posts/:postId" component={PostsEdit} />
-      </Route>
-    </Router>
+    <Provider store={store}>
+      <Router history={hashHistory}>
+        <Route path="/login" component={Login} />
+        <Route path="/" component={App}>
+          <IndexRoute component={Dashboard} />
+          <Route path="/posts" component={PostsIndex} />
+          <Route path="/posts/new" component={PostsEdit} />
+          <Route path="/posts/:postId" component={PostsEdit} />
+        </Route>
+      </Router>
+    </Provider>
   )
 }
