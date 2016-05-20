@@ -68,7 +68,6 @@ PostsEdit.contextTypes = {
   router: React.PropTypes.object
 };
 
-
 PostsEdit.propsTypes = {
   params: React.PropTypes.object
 };

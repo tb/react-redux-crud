@@ -43,7 +43,7 @@ export default class PostsIndex extends React.Component {
           </div>
         </div>
         <PostsList posts={this.state.posts} onDelete={this.handleDelete.bind(this)}/>
-        </div>
+      </div>
     );
   }
 }
