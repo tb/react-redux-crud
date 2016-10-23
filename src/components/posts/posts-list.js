@@ -8,6 +8,7 @@ export const PostsList = ({posts, onDelete}) => {
       <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Category</th>
         <th></th>
       </tr>
       </thead>
@@ -23,6 +24,7 @@ export const PostsListRow = ({post, onDelete}) => {
     <tr key={post.id}>
       <td>{post.id}</td>
       <td>{post.title}</td>
+      <td>{post.category_id}</td>
       <td>
         <div className="btn-toolbar pull-right">
           <Link to={`/posts/${post.id}`} className="btn btn-primary">Edit</Link>

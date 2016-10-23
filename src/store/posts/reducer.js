@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case actionTypes.POSTS_FETCH_SUCCESS:
       return state.merge({
         params: action.payload.params || {},
-        postsById: action.payload.postsById || {q: ''}
+        postsById: action.payload.postsById || {}
       });
     case actionTypes.POSTS_CREATE_SUCCESS:
     case actionTypes.POSTS_UPDATE_SUCCESS:
