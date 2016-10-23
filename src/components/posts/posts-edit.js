@@ -1,8 +1,8 @@
 import React from 'react';
 import Textarea from 'react-textarea-autosize';
 import axios from 'axios';
-import store from '../store';
-import * as postsActions from '../actions/posts-actions';
+import store from '../../store';
+import * as postsActions from '../../store/actions/posts-actions';
 
 // import { connect } from 'react-redux'
 // import store from '../store';

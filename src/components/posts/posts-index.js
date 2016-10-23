@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import { PostsList } from './posts-list';
 import SearchInput from '../shared/search-input';
-import store from '../store';
-import * as postsActions from '../actions/posts-actions';
+import store from '../../store';
+import * as postsActions from '../../store/actions/posts-actions';
 
 @connect((state) => {
   return {

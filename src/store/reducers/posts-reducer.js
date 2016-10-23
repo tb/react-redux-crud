@@ -19,7 +19,11 @@ export default (state = {}, action) => {
     case 'POSTS_CREATE_SUCCESS':
       return {
         ...state,
-        posts: state.posts.push(action.post)
+        // posts: state.posts.push(action.post) // WRONG - use 
+        posts: [
+          ...state.posts,
+          action.post
+        ]
       };
     case 'POSTS_UPDATE_SUCCESS':
       index = _.findIndex(state.posts, {id: action.post.id});

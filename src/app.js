@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute, Router, hashHistory } from 'react-router';
-import Login from './auth/login';
-import Dashboard from './dashboard/dashboard';
-import PostsIndex from './posts/posts-index';
-import PostsEdit from './posts/posts-edit';
+import Login from './components/auth/login';
+import Dashboard from './components/dashboard/dashboard';
+import PostsIndex from './components/posts/posts-index';
+import PostsEdit from './components/posts/posts-edit';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
-import { Auth } from './auth/auth';
+import { Auth } from './services/auth';
 import { Provider } from 'react-redux';
 import store from './store';
 
