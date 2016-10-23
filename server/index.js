@@ -5,6 +5,8 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
+var validate = require('express-validation');
+var validations = require('./validations');
 
 var jwtSecret = 'JWT_SECRET';
 
@@ -22,6 +24,22 @@ app.use(bodyParser.json());
 app.post('/login', authenticate, function (req, res) {
   var token = jwt.sign({email: user.email}, jwtSecret);
   res.send({token: token, user: user});
+});
+
+app.post('/categories', validate(validations.category), function(req, res, next){
+  next();
+});
+
+app.put('/categories/:id', validate(validations.category), function(req, res, next){
+  next();
+});
+
+app.post('/posts', validate(validations.post), function(req, res, next){
+  next();
+});
+
+app.put('/posts/:id', validate(validations.post), function(req, res, next){
+  next();
 });
 
 app.get('/me', function (req, res) {
