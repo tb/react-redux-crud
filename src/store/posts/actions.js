@@ -1,3 +1,4 @@
+import { keyBy } from 'lodash';
 import axios from 'axios';
 import querystring from 'querystring';
 
@@ -14,7 +15,8 @@ export function getPosts(params) {
   return function (dispatch) {
     return axios.get(`http://localhost:8081/posts?${querystring.stringify(params)}`)
       .then((res) => {
-        dispatch({type: 'POSTS_FETCH_SUCCESS', posts: res.data, params});
+        const postsById = keyBy(res.data, (post) => post.id);
+        dispatch({type: 'POSTS_FETCH_SUCCESS', postsById, params});
       })
   };
 }
