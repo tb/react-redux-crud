@@ -1,7 +1,11 @@
 export function getParams(state) {
-  return state.postsState.params;
+  return state.posts.params;
+}
+
+export function getPost(state, id) {
+  return state.posts.postsById[id];
 }
 
 export function getPosts(state) {
-  return Object.values(state.postsState.postsById);
+  return Object.values(state.posts.postsById);
 }
