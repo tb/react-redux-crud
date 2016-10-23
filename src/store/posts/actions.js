@@ -25,7 +25,7 @@ export function createPost(post) {
   return function (dispatch) {
     return axios.post(`http://localhost:8081/posts`, post)
       .then((res) => {
-        dispatch({type: 'POSTS_CREATE_SUCCESS', post});
+        dispatch({type: 'POSTS_CREATE_SUCCESS', post: res.data});
       })
   };
 }
@@ -34,7 +34,7 @@ export function updatePost(post) {
   return function (dispatch) {
     return axios.put(`http://localhost:8081/posts/${post.id}`, post)
       .then((res) => {
-        dispatch({type: 'POSTS_UPDATE_SUCCESS', post});
+        dispatch({type: 'POSTS_UPDATE_SUCCESS', post: res.data});
       })
   };
 }
