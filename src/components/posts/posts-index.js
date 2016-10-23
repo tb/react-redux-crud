@@ -4,15 +4,9 @@ import { Link } from 'react-router';
 import { PostsList } from './posts-list';
 import SearchInput from '../shared/search-input';
 import store from '../../store';
-import * as postsActions from '../../store/actions/posts-actions';
+import { postsActions, postsSelectors } from '../../store/posts/index';
 
-@connect((state) => {
-  return {
-    params: state.postsState.params,
-    posts: state.postsState.posts
-  };
-})
-export default class PostsIndex extends React.Component {
+class PostsIndex extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -51,3 +45,12 @@ export default class PostsIndex extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    params: postsSelectors.getParams(state),
+    posts: postsSelectors.getPosts(state),
+  };
+}
+
+export default connect(mapStateToProps)(PostsIndex);

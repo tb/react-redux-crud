@@ -2,7 +2,7 @@ import React from 'react';
 import Textarea from 'react-textarea-autosize';
 import axios from 'axios';
 import store from '../../store';
-import * as postsActions from '../../store/actions/posts-actions';
+import { postsActions } from '../../store/posts/index';
 
 // import { connect } from 'react-redux'
 // import store from '../store';
