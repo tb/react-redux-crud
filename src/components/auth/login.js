@@ -30,7 +30,7 @@ export default class Login extends React.Component {
         <div className="row">
           <div className="panel panel-default col-sm-6 col-md-4 col-md-offset-4">
             <div className="panel-body">
-              <form onSubmit={this.handleSubmit.bind(this)} novalidate>
+              <form onSubmit={this.handleSubmit.bind(this)} noValidate>
                 <div className="form-group">
                   <label className="label-control">Email</label>
                   <input

@@ -52,7 +52,7 @@ export default class PostsEdit extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} novalidate>
+      <form onSubmit={this.handleSubmit.bind(this)} noValidate>
         <div className="form-group">
           <label className="label-control">Title</label>
           <input

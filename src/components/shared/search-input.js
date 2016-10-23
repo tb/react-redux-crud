@@ -1,5 +1,8 @@
 import React from 'react';
-import Rx from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 export default class SearchInput extends React.Component {
   constructor(props, context) {
@@ -9,7 +12,7 @@ export default class SearchInput extends React.Component {
   componentDidMount() {
     this.ref.value = this.props.value || '';
 
-    Rx.Observable.fromEvent(this.ref, 'keyup')
+    Observable.fromEvent(this.ref, 'keyup')
       .map((e) => e.target.value)
       .debounceTime(500)
       .subscribe((value) => {
