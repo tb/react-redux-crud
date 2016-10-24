@@ -1,28 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router';
-import { PostsList } from './posts-list';
-import SearchInput from '../shared/search-input';
-import store from '../../store';
-import { postsActions, postsSelectors } from '../../store/posts/index';
+import { PostsList } from '../components/posts/PostsList';
+import { SearchInput } from '../components/shared/SearchInput';
+import store from '../store';
+import { postsActions, postsSelectors } from '../store/posts/index';
 
-class PostsIndex extends React.Component {
+@connect(
+  (state) => {
+    return {
+      params: postsSelectors.getParams(state),
+      posts: postsSelectors.getPosts(state),
+    };
+  }
+)
+export class PostsIndex extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
 
   componentDidMount() {
-    if (!this.props.posts.length) {
-      this.getPosts();
-    }
+    this.getPosts();
   }
 
   getPosts(params = {}) {
     store.dispatch(postsActions.getPosts(params));
   }
 
-  handleDelete(postId) {
-    store.dispatch(postsActions.deletePost(postId));
+  handleDelete(post) {
+    store.dispatch(postsActions.deletePost(post));
   }
 
   handleSearch(field, value) {
@@ -45,12 +51,3 @@ class PostsIndex extends React.Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    params: postsSelectors.getParams(state),
-    posts: postsSelectors.getPosts(state),
-  };
-}
-
-export default connect(mapStateToProps)(PostsIndex);

@@ -1,50 +1,39 @@
 import { keyBy } from 'lodash';
-import axios from 'axios';
-import querystring from 'querystring';
 import * as actionTypes from './actionTypes';
 
-export function getPost(postId) {
-  return function (dispatch) {
-    return axios.get(`http://localhost:8081/posts/${postId}`)
-      .then((res) => {
-        dispatch({type: actionTypes.POSTS_FETCH_ONE_SUCCESS, payload: res.data});
-      })
-  };
+export function getPost(id) {
+  return {type: actionTypes.POSTS_FETCH_ONE, payload: id};
 }
 
 export function getPosts(params) {
-  return function (dispatch) {
-    return axios.get(`http://localhost:8081/posts?${querystring.stringify(params)}`)
-      .then((res) => {
-        const postsById = keyBy(res.data, (post) => post.id);
-        dispatch({type: actionTypes.POSTS_FETCH_SUCCESS, payload: {postsById, params}});
-      })
-  };
+  return {type: actionTypes.POSTS_FETCH, payload: {params}};
+}
+
+export function getPostsSuccess(posts, params) {
+  const postsById = keyBy(posts, (post) => post.id);
+  return {type: actionTypes.POSTS_FETCH_SUCCESS, payload: {postsById, params}};
 }
 
 export function createPost(post) {
-  return function (dispatch) {
-    return axios.post(`http://localhost:8081/posts`, post)
-      .then((res) => {
-        dispatch({type: actionTypes.POSTS_CREATE_SUCCESS, payload: res.data});
-      })
-  };
+  return {type: actionTypes.POSTS_CREATE, payload: post};
+}
+
+export function createPostSuccess(post) {
+  return {type: actionTypes.POSTS_CREATE_SUCCESS, payload: post};
 }
 
 export function updatePost(post) {
-  return function (dispatch) {
-    return axios.put(`http://localhost:8081/posts/${post.id}`, post)
-      .then((res) => {
-        dispatch({type: actionTypes.POSTS_UPDATE_SUCCESS, payload: res.data});
-      })
-  };
+  return {type: actionTypes.POSTS_UPDATE, payload: post};
 }
 
-export function deletePost(postId) {
-  return function (dispatch) {
-    return axios.delete(`http://localhost:8081/posts/${postId}`)
-      .then((res) => {
-        dispatch({type: actionTypes.POSTS_DELETE_SUCCESS, payload: postId});
-      })
-  };
+export function updatePostSuccess(post) {
+  return {type: actionTypes.POSTS_UPDATE_SUCCESS, payload: post};
+}
+
+export function deletePost(post) {
+  return {type: actionTypes.POSTS_DELETE, payload: post};
+}
+
+export function deletePostSuccess(post) {
+  return {type: actionTypes.POSTS_DELETE_SUCCESS, payload: post};
 }

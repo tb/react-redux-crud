@@ -1,5 +1,9 @@
-export const POSTS_FETCH_ONE_SUCCESS = 'posts.POSTS_FETCH_ONE_SUCCESS';
+export const POSTS_FETCH_ONE = 'posts.POSTS_FETCH_ONE';
+export const POSTS_FETCH = 'posts.POSTS_FETCH';
 export const POSTS_FETCH_SUCCESS = 'posts.POSTS_FETCH_SUCCESS';
+export const POSTS_CREATE = 'posts.POSTS_CREATE';
 export const POSTS_CREATE_SUCCESS = 'posts.POSTS_CREATE_SUCCESS';
+export const POSTS_UPDATE = 'posts.POSTS_UPDATE';
 export const POSTS_UPDATE_SUCCESS = 'posts.POSTS_UPDATE_SUCCESS';
+export const POSTS_DELETE = 'posts.POSTS_DELETE';
 export const POSTS_DELETE_SUCCESS = 'posts.POSTS_DELETE_SUCCESS';

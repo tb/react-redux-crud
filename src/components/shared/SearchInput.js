@@ -4,7 +4,13 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 
-export default class SearchInput extends React.Component {
+export class SearchInput extends React.Component {
+  static propsTypes = {
+    value: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
+    onSearch: React.PropTypes.func
+  };
+
   constructor(props, context) {
     super(props, context);
   }
@@ -30,9 +36,3 @@ export default class SearchInput extends React.Component {
     )
   }
 }
-
-SearchInput.propsTypes = {
-  value: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  onSearch: React.PropTypes.func
-};

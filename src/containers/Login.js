@@ -1,7 +1,11 @@
 import React from 'react';
-import { Auth } from '../../services/auth';
+import { Auth } from '../services/index';
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
+
   constructor(props, context) {
     super(props, context);
 
@@ -57,7 +61,3 @@ export default class Login extends React.Component {
     )
   }
 }
-
-Login.contextTypes = {
-  router: React.PropTypes.object
-};

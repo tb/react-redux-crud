@@ -7,9 +7,7 @@ module.exports = function makeWebpackConfig() {
 
   config.devtool = 'eval';
 
-  config.entry = [
-    './src/main'
-  ];
+  config.entry = './src/index';
 
   config.output = {
     path: __dirname + '/dist/',

@@ -1,16 +1,21 @@
 import React from 'react';
-import { Route, IndexRoute, Router, hashHistory } from 'react-router';
-import Login from './components/auth/login';
-import Dashboard from './components/dashboard/dashboard';
-import PostsIndex from './components/posts/posts-index';
-import PostsEdit from './components/posts/posts-edit';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
-import { Auth } from './services/auth';
+import { Route, IndexRoute, Router, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './store';
+import { Auth } from './services/Auth';
+import {
+  Login,
+  Dashboard,
+  PostsIndex,
+  PostsEdit,
+} from './containers/index';
 
 require('./app.scss');
+
+const history = syncHistoryWithStore(hashHistory, store);
 
 let App = ({children}) => {
   return (
@@ -43,7 +48,7 @@ let App = ({children}) => {
 export default () => {
   return (
     <Provider store={store}>
-      <Router history={hashHistory}>
+      <Router history={history}>
         <Route path="/login" component={Login} />
         <Route path="/" component={App}>
           <IndexRoute component={Dashboard} />

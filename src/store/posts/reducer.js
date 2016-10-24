@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case actionTypes.POSTS_UPDATE_SUCCESS:
       return state.setIn(['postsById', action.payload.id], action.payload);
     case actionTypes.POSTS_DELETE_SUCCESS:
-      return state.set('postsById', state.postsById.without(action.payload));
+      return state.set('postsById', state.postsById.without(action.payload.id));
     default:
       return state;
   }
