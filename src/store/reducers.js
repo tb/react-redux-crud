@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import { authReducer } from './auth/index';
-import { categoriesReducer } from './categories/index';
-import { postsReducer } from './posts/index';
+
+import auth from './auth/reducer';
+import categories from './categories/reducer';
+import posts from './posts/reducer';
 
 export default combineReducers({
-  auth: authReducer,
-  categories: categoriesReducer,
-  posts: postsReducer,
+  auth,
+  categories,
+  posts,
   routing: routerReducer,
 });
