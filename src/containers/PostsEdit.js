@@ -1,6 +1,5 @@
 import React from 'react';
 import Textarea from 'react-textarea-autosize';
-import store from '../store';
 import { postsActions, postsSelectors } from '../store/posts/index';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -41,7 +40,7 @@ export class PostsEdit extends React.Component {
 
   componentDidMount() {
     if (this.state.postId) {
-      store.dispatch(postsActions.getPost(this.props.params.postId));
+      this.context.store.dispatch(postsActions.fetchPost(this.props.params.postId));
     }
   }
 
@@ -52,9 +51,9 @@ export class PostsEdit extends React.Component {
 
   handleSubmit() {
     if (this.state.postId) {
-      store.dispatch(postsActions.updatePost(this.state.post));
+      this.context.store.dispatch(postsActions.updatePost(this.state.post));
     } else {
-      store.dispatch(postsActions.createPost(this.state.post));
+      this.context.store.dispatch(postsActions.createPost(this.state.post));
     }
   }
 
@@ -78,7 +77,9 @@ export class PostsEdit extends React.Component {
             onChange={this.handleChange.bind(this, 'body')} />
         </div>
 
-        <button type="submit" className="btn btn-default">{this.state.postId ? 'Update' : 'Create' } Post</button>
+        <button type="submit" className="btn btn-default">
+          {this.state.postId ? 'Update' : 'Create' } Post
+        </button>
       </form>
     );
   }

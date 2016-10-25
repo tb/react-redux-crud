@@ -1,4 +1,4 @@
-import * as postsActions from './actions';
+import * as postsActions from './actionCreators';
 import * as postsSelectors from './selectors';
 
 export {

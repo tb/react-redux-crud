@@ -1,37 +1,38 @@
 import { keyBy } from 'lodash';
 import axios from 'axios';
 import querystring from 'querystring';
-import * as Rx from 'rxjs';
-import * as actionTypes from './actionTypes';
-import * as postsActions from './actions';
+import { Observable } from 'rxjs/Observable';
 import { push } from 'react-router-redux';
 
-export function getPost(action$) {
-  return action$.ofType(actionTypes.POSTS_FETCH_ONE)
+import * as actionTypes from './actionTypes';
+import * as postsActions from './actionCreators';
+
+export function fetchPost(action$) {
+  return action$.ofType(actionTypes.FETCH_ONE)
     .map(action => action.payload)
     .switchMap(id => {
-      return Rx.Observable.fromPromise(
+      return Observable.fromPromise(
         axios.get(`http://localhost:8081/posts/${id}`)
-      ).map(res => postsActions.getPostsSuccess([res.data], {}))
+      ).map(res => postsActions.fetchPostSuccess(res.data));
     });
 }
 
-export function getPosts(action$) {
-  return action$.ofType(actionTypes.POSTS_FETCH)
-    .map(action => action.payload.params)
+export function fetchPosts(action$) {
+  return action$.ofType(actionTypes.FETCH_COLLECTION)
+    .map(action => action.payload)
     .switchMap(params => {
-      return Rx.Observable.fromPromise(
+      return Observable.fromPromise(
         axios.get(`http://localhost:8081/posts?${querystring.stringify(params)}`)
-      ).map(res => postsActions.getPostsSuccess(res.data, params))
+      ).map(res => postsActions.fetchPostsSuccess(res.data, params));
     });
 }
 
 export function updatePost(action$) {
-  return action$.ofType(actionTypes.POSTS_UPDATE)
+  return action$.ofType(actionTypes.UPDATE)
     .map(action => action.payload)
     .switchMap(post => {
-      return Rx.Observable.merge(
-        Rx.Observable.fromPromise(
+      return Observable.merge(
+        Observable.fromPromise(
           axios.put(`http://localhost:8081/posts/${post.id}`, post)
         ).map(res => postsActions.updatePostSuccess(res.data)),
         Observable.of(push('/posts'))
@@ -40,11 +41,11 @@ export function updatePost(action$) {
 }
 
 export function createPost(action$) {
-  return action$.ofType(actionTypes.POSTS_CREATE)
+  return action$.ofType(actionTypes.CREATE)
     .map(action => action.payload)
     .switchMap(post => {
-      return Rx.Observable.merge(
-        Rx.Observable.fromPromise(
+      return Observable.merge(
+        Observable.fromPromise(
           axios.post(`http://localhost:8081/posts`, post)
         ).map(res => postsActions.createPostSuccess(res.data)),
         Observable.of(push('/posts'))
@@ -53,10 +54,10 @@ export function createPost(action$) {
 }
 
 export function deletePost(action$) {
-  return action$.ofType(actionTypes.POSTS_DELETE)
+  return action$.ofType(actionTypes.DELETE)
     .map(action => action.payload)
     .switchMap(post => {
-      return Rx.Observable.fromPromise(
+      return Observable.fromPromise(
         axios.delete(`http://localhost:8081/posts/${post.id}`)
       ).map(res => postsActions.deletePostSuccess(post));
     });
