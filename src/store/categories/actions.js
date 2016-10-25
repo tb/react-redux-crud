@@ -16,8 +16,8 @@ export function getCategories(params) {
   return function (dispatch) {
     return axios.get(`http://localhost:8081/categories?${querystring.stringify(params)}`)
       .then((res) => {
-        const categoriesById = keyBy(res.data, (category) => category.id);
-        dispatch({type: actionTypes.CATEGORIES_FETCH_SUCCESS, payload: {categoriesById, params}});
+        const byId = keyBy(res.data, (category) => category.id);
+        dispatch({type: actionTypes.CATEGORIES_FETCH_SUCCESS, payload: {byId, params}});
       })
   };
 }

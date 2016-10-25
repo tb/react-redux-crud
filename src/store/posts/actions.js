@@ -10,8 +10,8 @@ export function getPosts(params) {
 }
 
 export function getPostsSuccess(posts, params) {
-  const postsById = keyBy(posts, (post) => post.id);
-  return {type: actionTypes.POSTS_FETCH_SUCCESS, payload: {postsById, params}};
+  const byId = keyBy(posts, (post) => post.id);
+  return {type: actionTypes.POSTS_FETCH_SUCCESS, payload: {byId, params}};
 }
 
 export function createPost(post) {

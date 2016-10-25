@@ -3,9 +3,9 @@ export function getParams(state) {
 }
 
 export function getPost(state, id) {
-  return state.posts.postsById[id];
+  return state.posts.byId[id];
 }
 
 export function getPosts(state) {
-  return Object.values(state.posts.postsById);
+  return Object.values(state.posts.byId);
 }
